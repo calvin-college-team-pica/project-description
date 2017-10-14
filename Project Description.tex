@@ -1,0 +1,304 @@
+\documentclass[titlepage,11pt,letterpaper]{article}
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage[T1]{fontenc}                                              %Provides T1 Font encoding for European characters
+\usepackage{Tabbing}
+\usepackage{array}                                                         % Allows for making new column types
+\usepackage{dcolumn}					        % Provides decimal alignment column macros
+\usepackage{fancyhdr}                                                  % Produce a "fancy" header using \rhead,\chead,\lhead
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{chngcntr} 						%figure and equation numbering by section
+\usepackage{soul}
+\usepackage{bookmark}                                                 % Prevents having to re-run due to labels
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{tocloft}							% Gives us the . . . in the TOC always and forever
+\usepackage{ifthen}
+\usepackage{listings}						% Allows for Listings
+\usepackage{courier}                                                       % Provides the courier Font
+\usepackage{subfig}
+\usepackage{float}
+\usepackage[siunitx,arrowmos]{circuitikz}
+%\usepackage{outlines}
+\usepackage[scaled=.92]{helvet}
+\usepackage[printonlyused,withpage]{acronym}      % Creates acronym table of acronyms and definitions used
+									        % in this document. \begin{acronym}[TDMA] ... \end{acronym}
+\usepackage[final]{pdfpages}
+\usepackage{tikz-timing}
+\usepackage{pdflscape}
+\usepackage{multicol}
+\usepackage{wrapfig}
+\usepackage{longtable}						% Provides the Longtable environment
+\usepackage{colortbl}						% Provides \rowcolor{}
+\usepackage[parfill]{parskip} 					% remove the dumb indents on all paragraphs
+\usepackage[toc,page]{appendix}				% Provides more control over the Appendix
+\usepackage{hyperref}						% Hyperlink output PDF Files
+\usepackage[all]{hypcap}						% Fix the dumb hyperlink bug!!!
+
+\input{kvmacros}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TOC dots
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\rmdefault}{phv}
+
+% Homework Specific Information
+\newcommand{\hmwkTitle}{Project Description}
+\newcommand{\hmwkDueDate}{15 September 2010}
+\newcommand{\hmwkClass}{ENGR 339-A}
+\newcommand{\hmwkClassTime}{2:30\ pm}
+\newcommand{\hmwkClassInstructor}{Prof. VanderLeest}
+\newcommand{\hmwkAuthorName}{A. Ball, N. Jen, A. Sterk, K. Wiersma}
+
+% Setup the header and footer
+\pagestyle{fancy}                                                       %
+\lhead{\hmwkAuthorName}                                                 %
+\rhead{\hmwkClass\ (\hmwkClassInstructor): \hmwkTitle}  %
+\chead{}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+\fancypagestyle{plain}{
+\lhead{\hmwkAuthorName}                                                 %
+\rhead{\hmwkClass\ (\hmwkClassInstructor): \hmwkTitle}  %
+\chead{}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}}
+\definecolor{MyDarkGreen}{rgb}{0.0,0.4,0.0}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Creating special column types -- mostly math types
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Start by defining some macros
+\newcolumntype{d}[1]{D{.}{\cdot}{#1}}
+\newcolumntype{.}{D{.}{.}{-1}}
+\newcolumntype{,}{D{,}{,}{2}}
+\newcolumntype{C}{>{$}c<{$}}
+\newcolumntype{R}{>{$}r<{$}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% For faster processing, load Matlab syntax for listings
+\lstloadlanguages{MATLAB, [x86masm]Assembler, C++, VHDL}%
+\lstset{frame=single,                                                                              % Single frame around code
+        basicstyle=\tiny\ttfamily,             					   % Use small true type font
+        keywordstyle=[1]\color{blue}\ttfamily,        				   % MATLAB functions bold and blue
+        keywordstyle=[2]\color{purple},         				            % MATLAB function arguments purple
+        keywordstyle=[3]\color{blue}\underbar,  			            % User functions underlined and blue
+        identifierstyle=,                       						   % Nothing special about identifiers
+                                                							   % Comments small dark green courier
+        commentstyle=\usefont{T1}{pcr}{m}{sl}\color{MyDarkGreen}\scriptsize,
+        stringstyle=\color{purple},             					   % Strings are purple
+        showstringspaces=false,                 					   % Don't put marks in string spaces
+        tabsize=5,                              						   % 5 spaces per tab
+        %
+        %%% Put standard MATLAB functions not included in the default
+        %%% language here
+        morekeywords={ra,stw, addi, ldw, bge, beq, br},
+        %
+        %%% Put MATLAB function parameters here
+        morekeywords=[2]{on, off, interp},
+        %
+        %%% Put user defined functions here
+        morekeywords=[3]{FindESS, homework_example},
+        %
+        morecomment=[l][\color{blue}]{...},     % Line continuation (...) like blue comment
+        numbers=left,                           % Line numbers on left
+        firstnumber=1,                          % Line numbers start with line 1
+        numberstyle=\tiny\color{black},          % Line numbers are blue
+        stepnumber=5,                            % Line numbers go in steps of 5
+        breaklines=true,
+        breakatwhitespace=false
+        }  
+ 
+
+
+% This is used to trace down (pin point) problems
+% in latexing a document:
+%\tracingall
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}%
+   \addtolength{\labelLength}{0.25in}%
+   \changetext{}{-\labelLength}{}{}{}%
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+   \marginpar{\fbox{#1}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}%
+
+\newcommand{\homeworkProblemName}{}%
+\newcommand{\homeworkShortProblemName}{}
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[2]
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}
+   \renewcommand{\homeworkShortProblemName}{#2}
+   \section*{\homeworkProblemName\ -- \homeworkShortProblemName}%
+   \addcontentsline{toc}{section}{\homeworkShortProblemName}%
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\problemAnswer}[1]
+  {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+
+\newcommand{\problemLAnswer}[1]
+  {\labelAnswer{\homeworkProblemName}{#1}}
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+  {% We put this space here to make sure we're not connected to the above.
+   % Otherwise the changetext can do funny things to the other margin
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.25in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \subsection*{\homeworkSectionName}%
+   \addcontentsline{toc}{subsection}{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon (otherwise \sectionAnswer's can
+   % get ugly about their \marginpar placement.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\sectionAnswer}[1]
+  {% We put this space here to make sure we're disconnected from the previous
+   % passage
+
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+   \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+   \marginpar{\fbox{\homeworkSectionName}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   }%
+   
+   
+% Includes a MATLAB script.
+% The first parameter is the label, which also is the name of the script
+%   without the .m.
+% The second parameter is the optional caption.
+\newcommand{\matlabscript}[2]
+  {\begin{itemize}\item[]\lstinputlisting[language=MATLAB,caption=#2,label=#1]{#1.m}\end{itemize}}  
+  
+\newcommand{\ccode}[2]
+  {\begin{itemize}\item[]\lstinputlisting[language={C++},caption=#2,label=#1]{#1.c}\end{itemize}}  
+    
+\newcommand{\assemblycode}[2]
+  {\begin{itemize}\item[]\lstinputlisting[language={[x86masm]Assembler},caption=#2,label=#1]{#1.s}\end{itemize}}
+  
+ 
+\newcommand{\vhdlcode}[2]
+  {\begin{itemize}\item[]\lstinputlisting[language={[AMS]VHDL},caption=#2,label=#1]{#1.vhd}\end{itemize}} 
+  
+\newcommand{\degree}{$^{\circ}$}
+\renewcommand{\textbeta}{$\beta\ $}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%This sets up the counters for the figures and equations to be numbered inside their sections
+%\counterwithin{figure}{subsection}
+\counterwithin{equation}{section}
+\counterwithin{table}{subsection}
+%\counterwithin{lst}{homeworkProblemCounter}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+\title{\vspace{2in}\textmd{\textbf{\hmwkAuthorName}}\\\normalsize\vspace{0.1in}\hmwkClass:\ \hmwkTitle \vspace{0.1in}\\Due\ on\ \hmwkDueDate\\\vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}\vspace{3in}}
+\date{}
+\author{}
+%\title{\vspace{2in}\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\\vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}\vspace{3in}}
+%\date{}
+%\author{\textbf{\hmwkAuthorName}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\raggedright
+\setcounter{tocdepth}{4}
+\addtocontents{toc}{\protect\thispagestyle{fancy}}
+
+\begin{document}
+\begin{spacing}{1.1}
+\maketitle
+\newpage
+
+\section{Problem Statement}
+Electric panels today are basically the same as a few decades ago, despite the rapid advances in technology. This can be limiting not only for power companies but also for the consumers. As the price of electricity continues to increase, homeowners are becoming more concerned with how their electricity is being used. Unfortunately, the average homeowner has no easy or cheap way to monitor specifically when and where the power is used.
+
+\section{System Requirements}
+\begin{itemize}
+ \item The project shall not interfere with the expected delivery of power.
+ \item The project shall provide ``realtime'' information regarding the distribution and consumption of power within the home.
+ \item The project shall have a simple and easy-to-use interface.
+ \item The project shall be modular, extensible, and scalable.
+ \item The project shall accommodate local power generation (such as solar or wind) with the same monitoring as required above.
+ \item The project shall store its settings in a non-volatile way.
+ \item The project shall be tolerant of power outages.
+ \item The project shall take measurements with at least as much accuracy as a conventionial power meter.
+ \item The project shall monitor and report the status of the breakers in the breaker panel.
+\end{itemize}
+
+\section{Block Diagrams}
+The following block diagrams describe the various aspects of the system. Figure \ref{fig:scope} shows the scope of the project in that this project will reside primarily inside the electric panel. Figure \ref{fig:coexist} describes how the smart meter will coexist with the components that already exist inside a typical electric panel. Figure \ref{fig:base} shows the wireless base station that would store data and provide the internet link.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=4in]{Block_Diagram_01}
+\caption{Scope of the Smart Meter project.}
+\label{fig:scope}
+\end{center}
+\end{figure}
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=4in]{Block_Diagram_02}
+\caption{Smart meter Electric Panel.}
+\label{fig:coexist}
+\end{center}
+\end{figure}
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=4in]{Block_Diagram_03}
+\caption{Wireless Base station.}
+\label{fig:base}
+\end{center}
+\end{figure}
+
+\clearpage
+\section{Task List}
+\begin{enumerate}
+\item Digially Controlled Breakers -- Amy
+\item Electric Panel Smart Meter -- Kendrick
+\item Wireless Base Station -- Nathan
+\item Digital Signal Processing -- Avery
+\item Communications Protocols -- Team
+\end{enumerate}
+
+\end{spacing}
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
